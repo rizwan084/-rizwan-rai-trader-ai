@@ -1,0 +1,18 @@
+{
+  "name": "rizwan-rai-trader-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rizwan Rai Trader AI — live Binance market scanner and TradingView-style technical dashboard.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js && node --check public/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

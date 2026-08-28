@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0f1c">
+  <title>Rizwan Rai Trader AI</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">RR</div><div><strong>Rizwan Rai</strong><span>Trader AI</span></div></div>
+      <nav>
+        <button class="nav active" data-section="overview">Overview</button>
+        <button class="nav" data-section="scanner">AI Scanner</button>
+        <button class="nav" data-section="chart">Live Chart</button>
+        <button class="nav" data-section="signals">Signals</button>
+      </nav>
+      <div class="side-status"><span class="dot"></span> Binance public data<br><small>No API key required</small></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">LIVE CRYPTO TRADING SYSTEM</div>
+          <h1>Rizwan Rai Trader AI</h1>
+        </div>
+        <div class="controls">
+          <select id="market"><option value="futures">Futures</option><option value="spot">Spot</option></select>
+          <select id="interval"><option>1m</option><option>5m</option><option selected>15m</option><option>1h</option><option>4h</option><option>1d</option></select>
+          <button id="refresh" class="primary">Refresh</button>
+        </div>
+      </header>
+
+      <section id="overview" class="section active">
+        <div class="hero">
+          <div><span class="pill">AI SCALPING ENGINE</span><h2>Find high-confluence setups from live Binance candles.</h2><p>Technical structure, momentum, volume, liquidity sweeps and imbalance heuristics are combined into one readable signal.</p></div>
+          <div class="hero-score"><span>Engine</span><b>ONLINE</b><small id="lastUpdate">Waiting for data…</small></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>Market</span><b id="statMarket">Futures</b></div>
+          <div class="stat"><span>Scanned</span><b id="statScanned">—</b></div>
+          <div class="stat"><span>Top Signal</span><b id="statTop">—</b></div>
+          <div class="stat"><span>Confidence</span><b id="statConfidence">—</b></div>
+        </div>
+        <div class="grid two">
+          <div class="panel"><div class="panel-head"><h3>Top AI Setups</h3><button class="ghost" data-go="scanner">View scanner</button></div><div id="topSetups" class="setup-list"></div></div>
+          <div class="panel"><div class="panel-head"><h3>Engine Logic</h3></div><div class="logic-grid">
+            <div><b>01</b><span>Trend</span><small>EMA 9 / 20 / 50 / 200</small></div>
+            <div><b>02</b><span>Momentum</span><small>RSI + candle strength</small></div>
+            <div><b>03</b><span>Liquidity</span><small>Recent high/low sweeps</small></div>
+            <div><b>04</b><span>Structure</span><small>BOS + swing analysis</small></div>
+            <div><b>05</b><span>Volume</span><small>Relative volume expansion</small></div>
+            <div><b>06</b><span>Imbalance</span><small>3-candle FVG heuristic</small></div>
+          </div></div>
+        </div>
+      </section>
+
+      <section id="scanner" class="section">
+        <div class="section-title"><div><span class="eyebrow">MARKET SCANNER</span><h2>AI Opportunity Scanner</h2></div><span class="live-badge">AUTO REFRESH 60s</span></div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>Pair</th><th>Signal</th><th>Confidence</th><th>Price</th><th>24h</th><th>Structure</th><th>Liquidity</th><th>RSI</th></tr></thead><tbody id="scannerBody"></tbody></table></div></div>
+      </section>
+
+      <section id="chart" class="section">
+        <div class="section-title"><div><span class="eyebrow">LIVE ANALYSIS</span><h2 id="chartTitle">BTCUSDT</h2></div><div class="symbol-box"><input id="symbolInput" value="BTCUSDT" maxlength="20"><button id="analyze">Analyze</button></div></div>
+        <div class="chart-layout">
+          <div class="panel chart-panel"><div id="chart"></div></div>
+          <div class="panel signal-panel">
+            <div class="signal-top"><span id="signalMarket">FUTURES · 15M</span><strong id="signalDirection">—</strong></div>
+            <div class="confidence"><div><span>AI Confidence</span><b id="confidenceValue">—</b></div><div class="meter"><i id="confidenceMeter"></i></div></div>
+            <div class="trade-grid"><div><span>Entry</span><b id="entry">—</b></div><div><span>Stop Loss</span><b id="sl">—</b></div><div><span>TP1</span><b id="tp1">—</b></div><div><span>TP2</span><b id="tp2">—</b></div><div><span>TP3</span><b id="tp3">—</b></div></div>
+            <div class="levels"><div><span>Support</span><b id="support">—</b></div><div><span>Resistance</span><b id="resistance">—</b></div></div>
+            <div class="tags"><span id="structureTag">—</span><span id="liquidityTag">—</span><span id="imbalanceTag">—</span></div>
+            <h4>Why this signal?</h4><ul id="reasons"></ul>
+          </div>
+        </div>
+        <div class="indicator-row">
+          <div class="indicator"><span>EMA 9</span><b id="ema9">—</b></div><div class="indicator"><span>EMA 20</span><b id="ema20">—</b></div><div class="indicator"><span>EMA 50</span><b id="ema50">—</b></div><div class="indicator"><span>RSI</span><b id="rsi">—</b></div><div class="indicator"><span>ATR</span><b id="atr">—</b></div><div class="indicator"><span>Vol Ratio</span><b id="volRatio">—</b></div>
+        </div>
+      </section>
+
+      <section id="signals" class="section">
+        <div class="section-title"><div><span class="eyebrow">SIGNAL HISTORY</span><h2>Current Watchlist</h2></div></div>
+        <div id="signalCards" class="signal-cards"></div>
+      </section>
+    </main>
+  </div>
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
