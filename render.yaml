@@ -3,6 +3,7 @@ services:
     name: rizwan-rai-trader-ai
     runtime: node
     plan: free
+    autoDeployTrigger: commit
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
