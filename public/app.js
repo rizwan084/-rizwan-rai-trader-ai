@@ -71,7 +71,7 @@ async function analyzeSymbol(symbol=state.selected){
     $("entry").textContent=fmt(d.entry); $("sl").textContent=fmt(d.stopLoss);
     $("tp1").textContent=fmt(d.targets[0]); $("tp2").textContent=fmt(d.targets[1]); $("tp3").textContent=fmt(d.targets[2]);
     $("support").textContent=fmt(d.support); $("resistance").textContent=fmt(d.resistance);
-    $("structureTag").textContent=d.structure; $("liquidityTag").textContent=d.liquidity; $("imbalanceTag").textContent=d.imbalance;
+    $("structureTag").textContent=d.structure; $("liquidityTag").textContent=d.liquidity; $("imbalanceTag").textContent=d.imbalance; $("orderBlockTag").textContent=d.orderBlock ? d.orderBlock.type : "NO ORDER BLOCK";
     $("reasons").innerHTML=d.reasons.map(x=>`<li>${esc(x)}</li>`).join("")||"<li>No strong single-factor confirmation.</li>";
     $("ema9").textContent=fmt(d.indicators.ema9); $("ema20").textContent=fmt(d.indicators.ema20); $("ema50").textContent=fmt(d.indicators.ema50);
     $("rsi").textContent=d.indicators.rsi??"—"; $("atr").textContent=fmt(d.indicators.atr); $("volRatio").textContent=(d.indicators.volumeRatio??"—")+"x";
