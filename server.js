@@ -323,7 +323,7 @@ app.get("/api/scanner", async (req, res) => {
   }
 });
 
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
+app.use((req, res) => res.sendFile(path.join(__dirname, "public", "index.html")));
 
 app.listen(PORT, HOST, () => {
   console.log(`Rizwan Rai Trader AI listening on ${HOST}:${PORT}`);
