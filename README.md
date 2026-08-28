@@ -29,7 +29,9 @@ npm start
 
 Then open `http://localhost:10000`.
 
-## Render
+## Deploy to Render
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/rizwan084/-rizwan-rai-trader-ai)
 
 This repository includes `render.yaml`. In Render, create a new Web Service from this GitHub repository. Render will use:
 
