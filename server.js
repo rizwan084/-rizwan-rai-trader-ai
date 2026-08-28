@@ -113,6 +113,27 @@ function roundPrice(v) {
   return Number(v.toFixed(8));
 }
 
+function detectOrderBlock(candles, bosUp, bosDown) {
+  const start = Math.max(0, candles.length - 35);
+  if (bosUp) {
+    for (let i = candles.length - 3; i >= start; i--) {
+      const c = candles[i];
+      if (c.close < c.open) {
+        return { type: "BULLISH ORDER BLOCK", high: c.high, low: c.low };
+      }
+    }
+  }
+  if (bosDown) {
+    for (let i = candles.length - 3; i >= start; i--) {
+      const c = candles[i];
+      if (c.close > c.open) {
+        return { type: "BEARISH ORDER BLOCK", high: c.high, low: c.low };
+      }
+    }
+  }
+  return null;
+}
+
 function analyzeCandles(raw, meta = {}) {
   const candles = raw.map(k => ({
     time: Math.floor(num(k[0]) / 1000),
@@ -177,6 +198,10 @@ function analyzeCandles(raw, meta = {}) {
   if (fvgBull) { longScore += 8; reasonsLong.push("Bullish imbalance / FVG"); }
   if (fvgBear) { shortScore += 8; reasonsShort.push("Bearish imbalance / FVG"); }
 
+  const orderBlock = detectOrderBlock(candles, bosUp, bosDown);
+  if (orderBlock?.type === "BULLISH ORDER BLOCK") { longScore += 8; reasonsLong.push("Bullish order block near structure break"); }
+  if (orderBlock?.type === "BEARISH ORDER BLOCK") { shortScore += 8; reasonsShort.push("Bearish order block near structure break"); }
+
   const direction = longScore >= shortScore ? "LONG" : "SHORT";
   const rawConfidence = Math.max(longScore, shortScore);
   const confidence = Math.min(99, Math.max(50, Math.round(55 + rawConfidence * 0.42)));
@@ -227,6 +252,7 @@ function analyzeCandles(raw, meta = {}) {
     structure,
     liquidity: sweepLow ? "SELL-SIDE SWEEP" : sweepHigh ? "BUY-SIDE SWEEP" : "NO FRESH SWEEP",
     imbalance: fvgBull ? "BULLISH FVG" : fvgBear ? "BEARISH FVG" : "NONE",
+    orderBlock: orderBlock ? { type: orderBlock.type, high: roundPrice(orderBlock.high), low: roundPrice(orderBlock.low) } : null,
     reasons: direction === "LONG" ? reasonsLong.slice(0, 5) : reasonsShort.slice(0, 5),
     candles
   };
